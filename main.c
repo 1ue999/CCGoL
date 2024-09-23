@@ -3,9 +3,9 @@
 #include <time.h>
 #include <unistd.h>
 
-const unsigned int width=16;
-const unsigned int height=16;
-const _Bool wrap=1;
+unsigned int width;
+unsigned int height;
+_Bool wrap;
 unsigned int rulesS[9]={0,0,1,1,0,0,0,0,0};
 unsigned int rulesR[9]={0,0,0,1,0,0,0,0,0};
 unsigned int curBuffer=0;
@@ -17,7 +17,7 @@ struct Command{
     const char command[8];
 };
 
-struct Command commands[7]={
+struct Command commands[8]={
     {
         .length=3,
         .command={'e','x','i','t'}
@@ -45,6 +45,10 @@ struct Command commands[7]={
     {
         .length=4,
         .command={'r','u','l','e','s'}
+    },
+    {
+        .length=2,
+        .command={'i','n','i'}
     }
 };
 
@@ -208,13 +212,28 @@ int handleCmd(unsigned int buffer[],char cmd[],char arg0[],char arg1[],char arg2
                 if(rR==0){break;}
             }
             return(0);
-        default:
+        case(7):
+            width=atoi(arg0);
+            height=atoi(arg1);
+            wrap=atoi(arg2);
             return(0);
+        default:
+            return(1);
     }
 }
 
 
-int main(){
+int main(int argc, char argv[]){
+    char arg0[16];
+    char arg1[16];
+    char arg2[16];
+
+    sscanf(argv,"%s %s %s",&arg0,&arg1,&arg2);
+
+    width=atoi(arg0);
+    height=atoi(arg1);
+
+    wrap=arg2[0]=='t'?1:0;
 
     unsigned int bufferA[width*height/16];
     unsigned int bufferB[width*height/16];
