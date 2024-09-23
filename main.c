@@ -224,11 +224,14 @@ int handleCmd(unsigned int buffer[],char cmd[],char arg0[],char arg1[],char arg2
 
 
 int main(int argc, char argv[]){
+    char cmd[8];
     char arg0[16];
     char arg1[16];
     char arg2[16];
+    char arg3[16];
 
-    sscanf(argv,"%s %s %s",&arg0,&arg1,&arg2);
+    printf("Enter initial parameters:\nwidth height wrap ('t' or 'f')\nExample: \n16 16 t\n");
+    scanf("%s %s %s",&arg0,&arg1,&arg2);
 
     width=atoi(arg0);
     height=atoi(arg1);
@@ -253,11 +256,6 @@ int main(int argc, char argv[]){
             draw(bufferB);
         }
         while(1){
-            char cmd[8];
-            char arg0[16];
-            char arg1[16];
-            char arg2[16];
-            char arg3[16];
             scanf("%s %s %s %s %s",&cmd,&arg0,&arg1,&arg2,&arg3);
             if(curBuffer==0){
                 handleRet=handleCmd(bufferA,cmd,arg0,arg1,arg2,arg3);
