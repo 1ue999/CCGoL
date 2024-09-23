@@ -17,7 +17,7 @@ struct Command{
     const char command[8];
 };
 
-struct Command commands[8]={
+struct Command commands[7]={
     {
         .length=3,
         .command={'e','x','i','t'}
@@ -45,10 +45,6 @@ struct Command commands[8]={
     {
         .length=4,
         .command={'r','u','l','e','s'}
-    },
-    {
-        .length=2,
-        .command={'i','n','i'}
     }
 };
 
@@ -211,11 +207,6 @@ int handleCmd(unsigned int buffer[],char cmd[],char arg0[],char arg1[],char arg2
                 rR=rR/10;
                 if(rR==0){break;}
             }
-            return(0);
-        case(7):
-            width=atoi(arg0);
-            height=atoi(arg1);
-            wrap=atoi(arg2);
             return(0);
         default:
             return(1);
